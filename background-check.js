@@ -564,7 +564,7 @@
     var minOverlap = 0;
     var mask = get('mask');
 
-    if (dims.width > 0 && dims.height > 0) {
+    if (dims.width > 0 && dims.height > 0 && !target.classList.contains('background-check-processed')) {
       removeClasses(target);
 
       target = get('changeParent') ? target.parentNode : target;
@@ -588,6 +588,8 @@
         mean = mean / 255;
         log('Target: ' + target.className +  ' lum: ' + mean + ' var: ' + variance);
         classList(target, mean <= (get('threshold') / 100) ? get('classes').dark : get('classes').light, 'add');
+
+        classList(target, 'background-check-processed', 'add');
 
         if (variance > get('minComplexity') / 100) {
           classList(target, get('classes').complex, 'add');
